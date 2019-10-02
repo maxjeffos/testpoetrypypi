@@ -1,0 +1,7 @@
+myvenv
+.pytest_cache
+.idea
+dist
+output
+testpoetrypypi.egg-info
+__pycache__
