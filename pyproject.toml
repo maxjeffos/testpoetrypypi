@@ -3,6 +3,8 @@ name = "testpoetrypypi"
 version = "0.1.0"
 description = ""
 authors = ["Jeff"]
+license = "Apache-2.0"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
