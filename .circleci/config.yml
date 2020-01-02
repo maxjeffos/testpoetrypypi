@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Do legit release
           command: |
-            poetry run semantic-release version --noop
+            poetry run semantic-release version
             echo "this is where to do the actual release"
 
             
