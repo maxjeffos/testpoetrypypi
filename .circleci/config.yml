@@ -52,11 +52,9 @@ jobs:
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
             echo "version thing before running `semantic-release version`:"
-            # cat semantic_release/__init__.py
             poetry run semantic-release version
             echo "this is where to do the actual release"
             echo "version thing after running `semantic-release version`:"
-            # cat semantic_release/__init__.py
             # poetry run semantic-release publish
 
             
