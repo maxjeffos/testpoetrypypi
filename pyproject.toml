@@ -16,7 +16,12 @@ testpoetrypypi = "testpoetrypypi:main"
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
+python-semantic-release = "^4.3.4"
 
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.semantic_release]
+# version_variable = "semantic_release/__init__.py:__version__"
+version_source = "tag"
