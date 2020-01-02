@@ -1,4 +1,5 @@
 myvenv
+.vscode
 .pytest_cache
 .idea
 dist
