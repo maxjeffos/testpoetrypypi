@@ -52,6 +52,8 @@ jobs:
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
             poetry run semantic-release version
+            echo "python show version after semantic-release version command:"
+            python semantic_release/__init__.py
             echo "this is where to do the actual release"
             poetry run semantic-release publish
 
