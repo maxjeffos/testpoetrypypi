@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build_and_test:
     docker:
       - image: circleci/python:3.7
     working_directory: ~/repo
@@ -23,8 +23,60 @@ jobs:
             poetry run pytest
             poetry run semantic-release version --noop
 
+  version_check:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Check environment
+          command: |
+            python --version
+            pip --version
+            ls -la
+      - run:
+          name: Build and test
+          command: |
+            pip install poetry
+            poetry install -v
+            poetry run pytest
+            poetry run semantic-release version --noop
+
+  release:
+    docker:
+      - image: circleci/python:3.7
+    steps:
+      - checkout
+      - run:
+          name: Check environment
+          command: |
+            python --version
+            pip --version
+            ls -la
+      - run:
+          name: Build and test
+          command: |
+            pip install poetry
+            poetry install -v
+            poetry run pytest
+            poetry run semantic-release version --noop
+
+
 workflows:
   version: 2
-  build_and_test:
+  build_test_release:
     jobs:
-      - build
+      - build_and_test
+      - version_check:
+          # context: undefined
+          filters:
+            branches:
+              only: master
+      - release:
+          # context: undefined
+          requires:
+            - version_check
+            - build_and_test
+          filters:
+            branches:
+              only: master
