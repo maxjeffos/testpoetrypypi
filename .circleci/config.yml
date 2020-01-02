@@ -27,6 +27,13 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Build and test
+          command: |
+            pip install poetry
+            poetry install -v
+            poetry run pytest
+            poetry run semantic-release version --noop
+      - run:
           name: Semantic Release no-op
           command: |
             poetry run semantic-release version --noop
