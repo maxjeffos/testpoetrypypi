@@ -53,6 +53,7 @@ jobs:
             git config --global user.name "${GH_USER}"
             poetry run semantic-release version
             echo "this is where to do the actual release"
+            poetry run semantic-release publish
 
             
 workflows:
