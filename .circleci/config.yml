@@ -51,6 +51,10 @@ jobs:
           command: |
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
+            
+            echo "tags after before doing anything:"
+            git tag --list
+            
             # poetry run semantic-release version
             poetry run semantic-release version -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
 
@@ -75,7 +79,8 @@ jobs:
             echo "tags after doing the build and before publish:"
             git tag --list
 
-            poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
+            # blocking publish for now till I sort out what's happening with the tags
+            # poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
 
             echo "tags after doing the publish:"
             git tag --list
