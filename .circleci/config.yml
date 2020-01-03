@@ -48,7 +48,7 @@ jobs:
             poetry run pytest
       - add_ssh_keys:
           fingerprints:
-            - "ca:a8:b5:8b:03:ac:cd:0c:74:be:39:2a:f5:e4:07:78"
+            - "98:72:78:cf:4f:99:ac:99:8a:39:70:31:d7:ef:23:20"
       - run:
           name: Do legit release
           command: |
