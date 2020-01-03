@@ -61,6 +61,7 @@ jobs:
             echo "python show version after semantic-release version command:"
             python semantic_release/__init__.py
             new_version=$(python semantic_release/__init__.py)
+            if $new_version='0.0.0' 
 
             echo "version in pyproject.toml before updating:"
             poetry version  #show version
@@ -69,6 +70,11 @@ jobs:
 
             echo "version in pyproject.toml after updating:"
             poetry version  #show version
+
+            if [[ $new_version == '0.0.0' ]]; then
+                echo "new_version is default value"
+                exit 0
+            fi
 
             echo "tags before doing the build:"
             git tag --list
