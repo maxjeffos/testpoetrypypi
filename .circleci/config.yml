@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Semantic Release no-op
           command: |
-            poetry run semantic-release version --noop
+            poetry run semantic-release version --noop -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
 
   release:
     docker:
