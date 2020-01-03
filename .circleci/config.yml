@@ -54,9 +54,7 @@ jobs:
           command: |
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
-            cat .git/config
-            
-            echo ""
+
             echo "tags after before doing anything:"
             git tag --list
             
@@ -76,6 +74,7 @@ jobs:
             echo "version in pyproject.toml before updating:"
             poetry version  #show version
 
+            # update pypoetry.toml with the $new_version from semantic-release
             poetry version $new_version
 
             echo "version in pyproject.toml after updating:"
@@ -90,16 +89,10 @@ jobs:
             echo "tags after doing the build and before publish:"
             git tag --list
 
-            # blocking publish for now till I sort out what's happening with the tags
-            # poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
+            # Publish package to PyPI
+            poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
 
-            echo "tags after doing the publish:"
-            git tag --list
-
-            # git tag v${new_version}
-            echo "trying to push a new tag:"
-            echo "repo: ${CIRCLE_PROJECT_REPONAME}"
-            # git push -q https://${GH_TOKEN}@github.com/${CIRCLE_PROJECT_REPONAME}.git v${new_version}
+            echo "git push the new tag:"
             git push origin v${new_version}
 
 workflows:
