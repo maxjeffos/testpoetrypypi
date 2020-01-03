@@ -99,8 +99,8 @@ jobs:
             # git tag v${new_version}
             echo "trying to push a new tag:"
             echo "repo: ${CIRCLE_PROJECT_REPONAME}"
-            git push -q https://${GH_TOKEN}@github.com/${CIRCLE_PROJECT_REPONAME}.git v${new_version}
-            # git push origin v${new_version}
+            # git push -q https://${GH_TOKEN}@github.com/${CIRCLE_PROJECT_REPONAME}.git v${new_version}
+            git push origin v${new_version}
 
 workflows:
   version: 2
