@@ -33,7 +33,7 @@ jobs:
       - run:
           name: Semantic Release no-op
           command: |
-            poetry run semantic-release version --noop
+            poetry run semantic-release version --noop -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
 
   release:
     docker:
@@ -51,12 +51,14 @@ jobs:
           command: |
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
-            poetry run semantic-release version
+            # poetry run semantic-release version
+            poetry run semantic-release version -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
+
             echo "python show version after semantic-release version command:"
             python semantic_release/__init__.py
-            echo "this is where to do the actual release"
-            poetry run semantic-release publish
 
+            echo "this is where to do the actual release"
+            # poetry run semantic-release publish
             
 workflows:
   version: 2
