@@ -55,9 +55,6 @@ jobs:
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
 
-            echo "tags after before doing anything:"
-            git tag --list
-            
             # poetry run semantic-release version
             # note running this command alone seems to produce the tag (but we still need to push it)
             poetry run semantic-release version -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
@@ -68,7 +65,7 @@ jobs:
             
             if [[ $new_version == '0.0.0' ]]; then
                 echo "new_version is default value"
-                exit 0
+                exit 0  # exit (without failing) so as to not publish
             fi
 
             echo "version in pyproject.toml before updating:"
@@ -80,15 +77,9 @@ jobs:
             echo "version in pyproject.toml after updating:"
             poetry version  #show version
 
-            echo "tags before doing the build:"
-            git tag --list
-
-            echo "this is where to do the actual release"
+            # build the package for release
             poetry build
-
-            echo "tags after doing the build and before publish:"
-            git tag --list
-
+            
             # Publish package to PyPI
             poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
 
