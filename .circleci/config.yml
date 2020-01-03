@@ -69,7 +69,6 @@ jobs:
             echo "this is where to do the actual release"
             poetry build
             poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
-            # poetry run semantic-release publish
             
 workflows:
   version: 2
