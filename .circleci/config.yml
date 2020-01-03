@@ -56,6 +56,15 @@ jobs:
 
             echo "python show version after semantic-release version command:"
             python semantic_release/__init__.py
+            new_version=$(python semantic_release/__init__.py)
+
+            echo "version in pyproject.toml before updating:"
+            poetry version  #show version
+
+            poetry version $new_version
+
+            echo "version in pyproject.toml after updating:"
+            poetry version  #show version
 
             echo "this is where to do the actual release"
             # poetry run semantic-release publish
