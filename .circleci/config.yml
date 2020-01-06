@@ -46,9 +46,7 @@ jobs:
             pip install poetry
             poetry install
             poetry run pytest
-      - add_ssh_keys:
-          fingerprints:
-            - "${GH_DEPLOY_KEY_FINGERPRINT}"
+      - add_ssh_keys
       - run:
           name: Do legit release
           command: |
