@@ -1,55 +1,79 @@
 version: 2.1
 
+commands:
+  checkout_and_install:
+    description: build and test
+
+    steps:
+      - checkout
+      - run:
+          name: See result of checkout
+          command: ls -la
+      - run:
+          name: Install Poetry
+          command: pip install poetry
+      - run:
+          name: Install
+          command: poetry install -v
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
+
 jobs:
-  build_and_test:
+  build:
     docker:
       - image: circleci/python:3.7
     working_directory: ~/repo
     steps:
-      - checkout
       - run:
           name: Check environment
           command: |
             python --version
             pip --version
-            ls -la
-      - run:
-          name: Build and test
-          command: |
-            pip install poetry
-            poetry install -v
-            poetry run pytest
+      - checkout_and_install
 
-  version_check:
+  test:
     docker:
       - image: circleci/python:3.7
+    working_directory: ~/repo
     steps:
-      - checkout
       - run:
-          name: Build and test
-          command: |
-            pip install poetry
-            poetry install
+          name: See what I have before attaching workspace
+          command: ls -la
+      - attach_workspace:
+          at: ~/repo
       - run:
-          name: Semantic Release no-op
-          command: |
-            # poetry run semantic-release version --noop -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
-            poetry run semantic-release version --noop
+          name: See what I have after attaching workspace
+          command: ls -la
+      # I need to re-install the dependencies, but I don't have to re-checkout the code because I persisted it all to the workspace
+      # but the dependencies were installed into a virtualenv in some mystery location so were not persisted.
+      - run:
+          name: Install dependencies 
+          command: poetry install -v
+      - run:
+          name: Test
+          command: poetry run pytest
+
+  # version_check:
+  #   docker:
+  #     - image: circleci/python:3.7
+  #   steps:
+  #     - checkout_and_install
+  #     - run:
+  #         name: Semantic Release no-op
+  #         command: poetry run semantic-release version --noop
+  #           # poetry run semantic-release version --noop -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
+  #           # poetry run semantic-release version --noop
 
   release:
     docker:
       - image: circleci/python:3.7
     steps:
-      - checkout
-      - run:
-          name: Build and test
-          command: |
-            pip install poetry
-            poetry install
-            poetry run pytest
+      - checkout_and_install
       - add_ssh_keys
       - run:
-          name: Do legit release
+          name: Release
           command: |
             # these seem to be required (by semantic-release) even when using version_source="tag"
             git config --global user.email "${GH_USER_EMAIL}"
@@ -90,18 +114,22 @@ workflows:
   version: 2
   build_test_release:
     jobs:
-      - build_and_test
-      - version_check
+      - build
+      - test:
+          requires:
+            - build
+      # - version_check
       # - version_check:
           # context: undefined
           # filters:
           #   branches:
           #     only: master
+
       - release:
           # context: undefined
           requires:
-            - version_check
-            - build_and_test
+            - build
+            - test
           filters:
             branches:
               only: master
