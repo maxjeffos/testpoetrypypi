@@ -55,8 +55,14 @@ jobs:
       - image: circleci/python:3.7
     working_directory: ~/repo
     steps:
+      - run:
+          name: See what I have before attaching workspace
+          command: ls -la
       - attach_workspace:
           at: ~/repo
+      - run:
+          name: See what I have after attaching workspace
+          command: ls -la
       - run:
           name: Test
           command: poetry run pytest
