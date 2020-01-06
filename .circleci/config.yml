@@ -3,9 +3,19 @@ version: 2.1
 commands:
   build_command:
     description: build and test
+
     steps:
+
+      - run:
+          name: Where am I?
+          command: pwd
+
       - checkout
       
+      - run:
+          name: Where am I?
+          command: pwd
+
       - run:
           name: See result of checkout
           command: ls -la
