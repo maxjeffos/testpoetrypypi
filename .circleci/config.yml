@@ -34,7 +34,7 @@ commands:
       - persist_to_workspace:
           root: .
           paths:
-            - testpoetrypypi/
+            - .
 
 jobs:
   build:
