@@ -1,36 +1,20 @@
 version: 2.1
 
 commands:
-  build_command:
+  checkout_and_install:
     description: build and test
 
     steps:
-
-      - run:
-          name: Where am I?
-          command: pwd
-
       - checkout
-      
-      - run:
-          name: Where am I?
-          command: pwd
-
       - run:
           name: See result of checkout
           command: ls -la
-
       - run:
           name: Install Poetry
           command: pip install poetry
       - run:
           name: Install
           command: poetry install -v
-
-      - run:
-          name: See result of install
-          command: ls -la
-
       - persist_to_workspace:
           root: .
           paths:
@@ -47,8 +31,7 @@ jobs:
           command: |
             python --version
             pip --version
-            ls -la
-      - build_command
+      - checkout_and_install
 
   test:
     docker:
@@ -76,7 +59,7 @@ jobs:
   #   docker:
   #     - image: circleci/python:3.7
   #   steps:
-  #     - build_command
+  #     - checkout_and_install
   #     - run:
   #         name: Semantic Release no-op
   #         command: poetry run semantic-release version --noop
@@ -87,11 +70,7 @@ jobs:
     docker:
       - image: circleci/python:3.7
     steps:
-      - build_command
-      - run:  # extract out another command? Or make this it's own job?
-          name: Test
-          command: poetry run pytest
-
+      - checkout_and_install
       - add_ssh_keys
       - run:
           name: Release
