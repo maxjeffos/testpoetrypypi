@@ -63,6 +63,11 @@ jobs:
       - run:
           name: See what I have after attaching workspace
           command: ls -la
+      # I need to re-install the dependencies, but I don't have to re-checkout the code because I persisted it all to the workspace
+      # but the dependencies were installed into a virtualenv in some mystery location so were not persisted.
+      - run:
+          name: Install dependencies 
+          command: poetry install -v
       - run:
           name: Test
           command: poetry run pytest
