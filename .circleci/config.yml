@@ -1,9 +1,13 @@
 version: 2.1
 
+defaults: &defaults
+  docker:
+    - image: circleci/python:3.7
+  working_directory: ~/repo
+
 commands:
   checkout_and_install:
-    description: build and test
-
+    description: Checkout and install
     steps:
       - checkout
       - run:
@@ -22,9 +26,7 @@ commands:
 
 jobs:
   build:
-    docker:
-      - image: circleci/python:3.7
-    working_directory: ~/repo
+    <<: *defaults
     steps:
       - run:
           name: Check environment
@@ -34,9 +36,7 @@ jobs:
       - checkout_and_install
 
   test:
-    docker:
-      - image: circleci/python:3.7
-    working_directory: ~/repo
+    <<: *defaults
     steps:
       - run:
           name: See what I have before attaching workspace
@@ -55,20 +55,8 @@ jobs:
           name: Test
           command: poetry run pytest
 
-  # version_check:
-  #   docker:
-  #     - image: circleci/python:3.7
-  #   steps:
-  #     - checkout_and_install
-  #     - run:
-  #         name: Semantic Release no-op
-  #         command: poetry run semantic-release version --noop
-  #           # poetry run semantic-release version --noop -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
-  #           # poetry run semantic-release version --noop
-
   release:
-    docker:
-      - image: circleci/python:3.7
+    <<: *defaults
     steps:
       - checkout_and_install
       - add_ssh_keys
@@ -118,15 +106,7 @@ workflows:
       - test:
           requires:
             - build
-      # - version_check
-      # - version_check:
-          # context: undefined
-          # filters:
-          #   branches:
-          #     only: master
-
       - release:
-          # context: undefined
           requires:
             - build
             - test
