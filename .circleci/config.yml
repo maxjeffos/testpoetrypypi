@@ -80,11 +80,11 @@ jobs:
             # build the package for release
             poetry build
             
-            # Publish package to PyPI
-            poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
-
             echo "git push the new tag:"
             git push origin v${new_version}
+
+            # Publish package to PyPI
+            poetry publish --username $PYPI_USERNAME --password $PYPI_PASSWORD
 
 workflows:
   version: 2
