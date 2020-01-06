@@ -1,6 +1,6 @@
 
 def run():
-    print('hello again again')
+    print('hello')
 
 
 if __name__ == "__main__":
