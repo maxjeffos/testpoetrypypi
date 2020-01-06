@@ -21,11 +21,9 @@ python-semantic-release = "^4.3.4"
 tomlkit = "^0.5.8"
 
 [tool.semantic_release]
-# version_variable = "semantic_release/__init__.py:__version__"
-version_variable = ""
+version_variable = "semantic_release/__init__.py:__version__"
 # version_source = "commit"
-# version_source = "tag"
-version_source = ""
+version_source = "tag"
 
 [build-system]
 requires = ["poetry>=0.12"]
