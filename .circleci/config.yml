@@ -25,7 +25,7 @@ commands:
           name: Install
           command: poetry install -v
       - run:
-          name: show pycache before install
+          name: show pycache after install
           command: |
             ls /home/
             ls /home/circleci
@@ -57,9 +57,31 @@ jobs:
           at: ~/repo
       # I need to re-install the dependencies, but I don't have to re-checkout the code because I persisted it all to the workspace
       # but the dependencies were installed into a virtualenv in some mystery location so were not persisted.
+      
+      - run:
+          name: show pycache before install
+          command: |
+            ls /home/
+            ls /home/circleci
+            ls /home/circleci/.cache
+            # ls /home/circleci/.cache/pypoetry
+            # ls /home/circleci/.cache/pypoetry/virtualenvs
+
       - run:
           name: Install dependencies 
           command: poetry install -v
+
+      - run:
+          name: show pycache after install
+          command: |
+            ls /home/
+            ls /home/circleci
+            ls /home/circleci/.cache
+            echo "pypoetry:"
+            ls /home/circleci/.cache/pypoetry
+            echo "virtualenvs:"
+            ls /home/circleci/.cache/pypoetry/virtualenvs
+
       - run:
           name: Test
           command: poetry run pytest
