@@ -22,11 +22,6 @@ commands:
       - run:
           name: Install
           command: poetry install -v
-      - run:
-          name: show pycache after install
-          command: |
-            echo "virtualenvs:"
-            ls /home/circleci/.cache/pypoetry/virtualenvs
 
       - save_cache:
           key: v1-py-cache-{{ checksum "poetry.lock" }}
@@ -69,12 +64,6 @@ jobs:
       - run:
           name: Install dependencies 
           command: poetry install -v
-
-      - run:
-          name: show pycache after install
-          command: |
-            echo "virtualenvs:"
-            ls /home/circleci/.cache/pypoetry/virtualenvs
             
       - save_cache:
           key: v1-py-cache-{{ checksum "poetry.lock" }}
