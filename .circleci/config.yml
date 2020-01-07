@@ -12,7 +12,9 @@ commands:
       - checkout
       - run:
           name: Install Poetry
-          command: pip install poetry
+          command: | 
+            pip install poetry
+            poetry --version
       - run:
           name: show pycache before install
           command: |
@@ -48,6 +50,7 @@ jobs:
           command: |
             python --version
             pip --version
+            poetry --version
       - checkout_and_install
 
   test:
