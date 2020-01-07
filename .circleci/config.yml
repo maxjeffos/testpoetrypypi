@@ -17,7 +17,7 @@ commands:
 
       - restore_cache:
           keys: 
-            - temp-deps-{{ checksum "poetry.lock" }}
+            - v1-py-cache-{{ checksum "poetry.lock" }}
 
       - run:
           name: Install
@@ -29,7 +29,7 @@ commands:
             ls /home/circleci/.cache/pypoetry/virtualenvs
 
       - save_cache:
-          key: temp-deps-{{ checksum "poetry.lock" }}
+          key: v1-py-cache-{{ checksum "poetry.lock" }}
           paths:
             - /home/circleci/.cache/pypoetry/virtualenvs
 
@@ -55,7 +55,7 @@ jobs:
       - attach_workspace:
           at: ~/repo
       # I need to re-install the dependencies, but I don't have to re-checkout the code because I persisted it all to the workspace
-      # but the dependencies were installed into a virtualenv in some mystery location so were not persisted.
+      # but the dependencies were installed into a virtualenv in some mystery location so were not persisted. Fortunately, they are cached.
       
       - run:
           name: Install Poetry
@@ -64,7 +64,7 @@ jobs:
 
       - restore_cache:
           keys: 
-            - temp-deps-{{ checksum "poetry.lock" }}
+            - v1-py-cache-{{ checksum "poetry.lock" }}
 
       - run:
           name: Install dependencies 
@@ -77,7 +77,7 @@ jobs:
             ls /home/circleci/.cache/pypoetry/virtualenvs
             
       - save_cache:
-          key: temp-deps-{{ checksum "poetry.lock" }}
+          key: v1-py-cache-{{ checksum "poetry.lock" }}
           paths:
             - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
