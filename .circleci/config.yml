@@ -30,8 +30,10 @@ commands:
             ls /home/
             ls /home/circleci
             ls /home/circleci/.cache
-            # ls /home/circleci/.cache/pypoetry
-            # ls /home/circleci/.cache/pypoetry/virtualenvs
+            echo "pypoetry:"
+            ls /home/circleci/.cache/pypoetry
+            echo "virtualenvs:"
+            ls /home/circleci/.cache/pypoetry/virtualenvs
       - persist_to_workspace:
           root: .
           paths:
