@@ -14,27 +14,25 @@ commands:
           name: Install Poetry
           command: | 
             pip install poetry
-      - run:
-          name: show pycache before install
-          command: |
-            ls /home/
-            ls /home/circleci
-            ls /home/circleci/.cache
-            # ls /home/circleci/.cache/pypoetry
-            # ls /home/circleci/.cache/pypoetry/virtualenvs
+
+      - restore_cache:
+          keys: 
+            - temp-deps-{{ checksum "poetry.lock" }}
+
       - run:
           name: Install
           command: poetry install -v
       - run:
           name: show pycache after install
           command: |
-            ls /home/
-            ls /home/circleci
-            ls /home/circleci/.cache
-            echo "pypoetry:"
-            ls /home/circleci/.cache/pypoetry
             echo "virtualenvs:"
             ls /home/circleci/.cache/pypoetry/virtualenvs
+
+      - save_cache:
+          key: temp-deps-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
+
       - persist_to_workspace:
           root: .
           paths:
@@ -63,16 +61,10 @@ jobs:
           name: Install Poetry
           command: | 
             pip install poetry
-            
-      - run:
-          name: show pycache before install
-          command: |
-            which poetry
-            ls /home/
-            ls /home/circleci
-            ls /home/circleci/.cache
-            # ls /home/circleci/.cache/pypoetry
-            # ls /home/circleci/.cache/pypoetry/virtualenvs
+
+      - restore_cache:
+          keys: 
+            - temp-deps-{{ checksum "poetry.lock" }}
 
       - run:
           name: Install dependencies 
@@ -81,14 +73,13 @@ jobs:
       - run:
           name: show pycache after install
           command: |
-            ls /home/
-            ls /home/circleci
-            ls /home/circleci/.cache
-            echo "pypoetry:"
-            ls /home/circleci/.cache/pypoetry
             echo "virtualenvs:"
             ls /home/circleci/.cache/pypoetry/virtualenvs
-
+            
+      - save_cache:
+          key: temp-deps-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           name: Test
           command: poetry run pytest
