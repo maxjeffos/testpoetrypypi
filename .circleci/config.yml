@@ -60,6 +60,11 @@ jobs:
       # but the dependencies were installed into a virtualenv in some mystery location so were not persisted.
       
       - run:
+          name: Install Poetry
+          command: | 
+            pip install poetry
+            
+      - run:
           name: show pycache before install
           command: |
             which poetry
