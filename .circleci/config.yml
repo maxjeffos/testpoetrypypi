@@ -16,20 +16,24 @@ commands:
       - run:
           name: show pycache before install
           command: |
-            ls ~/circleci/.cache
-            ls /home/circleci/.cache
-            ls /home/circleci/.cache/pypoetry
-            ls /home/circleci/.cache/pypoetry/virtualenvs
+            ls ~/
+            ls /home/
+            # ls ~/circleci/.cache
+            # ls /home/circleci/.cache
+            # ls /home/circleci/.cache/pypoetry
+            # ls /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           name: Install
           command: poetry install -v
       - run:
           name: show pycache before install
           command: |
-            ls ~/circleci/.cache
-            ls /home/circleci/.cache
-            ls /home/circleci/.cache/pypoetry
-            ls /home/circleci/.cache/pypoetry/virtualenvs
+            ls ~/
+            ls /home/
+            # ls ~/circleci/.cache
+            # ls /home/circleci/.cache
+            # ls /home/circleci/.cache/pypoetry
+            # ls /home/circleci/.cache/pypoetry/virtualenvs
       - persist_to_workspace:
           root: .
           paths:
