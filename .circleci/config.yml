@@ -12,8 +12,7 @@ commands:
       - checkout
       - run:
           name: Install Poetry
-          command: | 
-            pip install poetry
+          command: pip install poetry
 
       - restore_cache:
           keys: 
@@ -54,8 +53,7 @@ jobs:
       
       - run:
           name: Install Poetry
-          command: | 
-            pip install poetry
+          command: pip install poetry
 
       - restore_cache:
           keys: 
