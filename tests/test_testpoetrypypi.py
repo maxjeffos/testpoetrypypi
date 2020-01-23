@@ -1,12 +1,16 @@
-from testpoetrypypi import __version__
 import os
+
 import tomlkit
+
+from testpoetrypypi import __version__
 
 # def test_version():
 #     assert __version__ == '0.1.0'
 
+
 def test_stuff():
     assert 1 == 1
+
 
 def test_module_version_matches_pyproject_version():
     """Verify that the __version__ in the module is being correctly pulled from the pyproject.toml config"""
