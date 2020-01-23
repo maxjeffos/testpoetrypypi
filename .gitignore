@@ -6,3 +6,4 @@ dist
 output
 testpoetrypypi.egg-info
 __pycache__
+.coverage
