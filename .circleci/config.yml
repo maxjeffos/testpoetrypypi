@@ -16,7 +16,9 @@ commands:
 
       - run:
           name: Show Poetry Install Location
-          command: which poetry
+          command: | 
+            which poetry
+            cat $(which poetry)
 
       - restore_cache:
           keys: 
