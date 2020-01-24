@@ -10,6 +10,13 @@ commands:
     description: Checkout and install
     steps:
       - checkout
+
+      - run:
+          name: See if poetry is already installed
+          command: | 
+            which poetry
+            poetry --version
+
       - run:
           name: Install Poetry
           command: pip install poetry
