@@ -105,7 +105,7 @@ jobs:
             git push origin v${new_version}
 
             # Publish package to PyPI
-            poetry publish
+            poetry publish --username __token__ --password $PYPI_TOKEN
 
 workflows:
   version: 2
