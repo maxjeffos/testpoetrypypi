@@ -14,6 +14,10 @@ commands:
           name: Install Poetry
           command: pip install poetry
 
+      - run:
+          name: Show Poetry Install Location
+          command: which poetry
+
       - restore_cache:
           keys: 
             - v1-py-cache-{{ checksum "poetry.lock" }}
