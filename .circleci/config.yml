@@ -15,7 +15,6 @@ commands:
           name: See if poetry is already installed
           command: | 
             which poetry
-            poetry help
 
       - run:
           name: Install Poetry
