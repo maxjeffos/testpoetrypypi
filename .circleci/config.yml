@@ -16,9 +16,9 @@ commands:
           command: | 
             which poetry
 
-      - run:
-          name: Install Poetry
-          command: pip install poetry
+      # - run:
+      #     name: Install Poetry
+      #     command: pip install poetry
 
       - run:
           name: Show Poetry Install Location
