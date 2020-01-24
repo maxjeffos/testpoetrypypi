@@ -25,18 +25,18 @@ commands:
           command: | 
             which poetry
 
-      - restore_cache:
-          keys: 
-            - v1-py-cache-{{ checksum "poetry.lock" }}
+      # - restore_cache:
+      #     keys: 
+      #       - v1-py-cache-{{ checksum "poetry.lock" }}
 
       - run:
           name: Install
           command: poetry install -v
 
-      - save_cache:
-          key: v1-py-cache-{{ checksum "poetry.lock" }}
-          paths:
-            - /home/circleci/.cache/pypoetry/virtualenvs
+      # - save_cache:
+      #     key: v1-py-cache-{{ checksum "poetry.lock" }}
+      #     paths:
+      #       - /home/circleci/.cache/pypoetry/virtualenvs
 
       - persist_to_workspace:
           root: .
