@@ -24,8 +24,7 @@ commands:
           name: Show Poetry Install Location
           command: | 
             which poetry
-            # cat $(which poetry)
-            poetry help
+            poetry
 
       - restore_cache:
           keys: 
@@ -54,6 +53,7 @@ jobs:
           command: |
             python --version
             pip --version
+            poetry --version
       - checkout_and_install
 
   test:
