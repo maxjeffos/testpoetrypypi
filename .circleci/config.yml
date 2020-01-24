@@ -16,6 +16,7 @@ commands:
           command: | 
             which poetry
 
+      # Seems like Poetry is installed by default in the circleci/python:3.7 image
       # - run:
       #     name: Install Poetry
       #     command: pip install poetry
@@ -25,18 +26,18 @@ commands:
           command: | 
             which poetry
 
-      # - restore_cache:
-      #     keys: 
-      #       - v1-py-cache-{{ checksum "poetry.lock" }}
+      - restore_cache:
+          keys: 
+            - v1-py-cache-{{ checksum "poetry.lock" }}
 
       - run:
           name: Install
           command: poetry install -v
 
-      # - save_cache:
-      #     key: v1-py-cache-{{ checksum "poetry.lock" }}
-      #     paths:
-      #       - /home/circleci/.cache/pypoetry/virtualenvs
+      - save_cache:
+          key: v1-py-cache-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
 
       - persist_to_workspace:
           root: .
@@ -62,9 +63,10 @@ jobs:
       # I need to re-install the dependencies, but I don't have to re-checkout the code because I persisted it all to the workspace
       # but the dependencies were installed into a virtualenv in some mystery location so were not persisted. Fortunately, they are cached.
       
-      - run:
-          name: Install Poetry
-          command: pip install poetry
+      # Seems like Poetry is installed by default in the circleci/python:3.7 image
+      # - run:
+      #     name: Install Poetry
+      #     command: pip install poetry
 
       - restore_cache:
           keys: 
