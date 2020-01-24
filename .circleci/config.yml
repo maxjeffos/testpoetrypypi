@@ -15,7 +15,7 @@ commands:
           name: See if poetry is already installed
           command: | 
             which poetry
-            poetry -V
+            poetry help
 
       - run:
           name: Install Poetry
@@ -26,7 +26,7 @@ commands:
           command: | 
             which poetry
             # cat $(which poetry)
-            poetry -V
+            poetry help
 
       - restore_cache:
           keys: 
