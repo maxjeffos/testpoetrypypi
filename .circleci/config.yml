@@ -24,7 +24,6 @@ commands:
           name: Show Poetry Install Location
           command: | 
             which poetry
-            poetry
 
       - restore_cache:
           keys: 
