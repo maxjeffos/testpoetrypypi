@@ -90,9 +90,9 @@ jobs:
     <<: *defaults
     steps:
       # - checkout_and_install
-      - checkout
-      # - attach_workspace:
-      #     at: ~/repo
+      # - checkout
+      - attach_workspace:
+          at: ~/repo
       - install_deps
       - add_ssh_keys
       - run:
