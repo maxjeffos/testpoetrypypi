@@ -135,7 +135,6 @@ workflows:
       - release:
           context: testpoetrypypi-pypi
           requires:
-            - build
             - test
             - test_deps
           filters:
