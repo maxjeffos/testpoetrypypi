@@ -92,7 +92,7 @@ jobs:
       - checkout_and_install
       # - attach_workspace:
       #     at: ~/repo
-      # - install_deps
+      - install_deps
       - add_ssh_keys
       - run:
           name: Release
