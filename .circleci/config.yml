@@ -53,7 +53,7 @@ jobs:
           at: ~/repo
       - install_deps
       - run:
-          name: Create requirements.txt
+          name: Test dependencies for security issues
           command: |
             mkdir dependencies-check
             poetry export -f requirements.txt --without-hashes > dependencies-check/requirements.txt
@@ -61,12 +61,12 @@ jobs:
             cd dependencies-check
             ls -la
             # cat requirements.txt
-            curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
+            
+            # curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
+            latest_version=$(curl -Is "https://github.com/snyk/snyk/releases/latest" | grep "Location" | sed s#.*tag/##g | tr -d "\r")
+            snyk_cli_dl_linux="https://github.com/snyk/snyk/releases/download/${latest_version}/snyk-linux"
+            curl -Lo ./snyk $snyk_cli_dl_linux
             chmod +x ./snyk
-
-            # for some reason, running pip install needs to connect to github.com
-            # mkdir ~/.ssh
-            # ssh-keyscan github.com > ~/.ssh/known_hosts
 
             pip install -r requirements.txt
             ./snyk test --file=requirements.txt
