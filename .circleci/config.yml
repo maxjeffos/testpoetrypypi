@@ -74,11 +74,6 @@ jobs:
       - attach_workspace:
           at: ~/repo
 
-      - run:
-          name: temp - make sure that the requirements.txt isn't persisted to the workspace
-          command: |
-            ls -la
-
       # this is so that I don't have to do a `checkout` to be able to push the git tag
       - run:
           name: Add github.com to known_hosts
@@ -142,6 +137,7 @@ workflows:
           requires:
             - build
             - test
+            - test_deps
           filters:
             branches:
               only: master
