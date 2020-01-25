@@ -94,17 +94,13 @@ jobs:
       - run:
           name: show contents after attaching workspace
           command: |
-            ls -la
-            ls -la .git
-            cat .git/config
+            cat ~/.ssh/known_hosts
 
       - checkout
       - run:
           name: show contents after checkout
           command: |
-            ls -la
-            ls -la .git
-            cat .git/config
+            cat ~/.ssh/known_hosts
 
       - install_deps
       - add_ssh_keys
