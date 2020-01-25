@@ -66,7 +66,7 @@ jobs:
             ssh-keyscan github.com > ~/.ssh/known_hosts
 
             pip install -r requirements.txt
-            ./snyk test --file=requirements.txt
+            # ./snyk test --file=requirements.txt
 
   release:
     <<: *defaults
