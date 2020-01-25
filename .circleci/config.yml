@@ -46,6 +46,20 @@ jobs:
           name: Test
           command: poetry run pytest
 
+  test_deps:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo
+      - install_deps
+      - run:
+          name: Create requirements.txt
+          command: |
+            poetry run pip freeze > requirements.txt
+            curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
+            chmod +x ./snyk
+            ./snyk --file=requirements.txt
+
   release:
     <<: *defaults
     steps:
@@ -105,6 +119,9 @@ workflows:
     jobs:
       - build
       - test:
+          requires:
+            - build
+      - test_deps:
           requires:
             - build
       - release:
