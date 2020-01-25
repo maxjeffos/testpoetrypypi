@@ -6,28 +6,28 @@ defaults: &defaults
   working_directory: ~/repo
 
 commands:
-  # checkout_and_install:
-  #   description: Checkout and install
-  #   steps:
-  #     - checkout
+  checkout_and_install:
+    description: Checkout and install
+    steps:
+      - checkout
 
-  #     - restore_cache:
-  #         keys: 
-  #           - v1-py-cache-{{ checksum "poetry.lock" }}
+      - restore_cache:
+          keys: 
+            - v1-py-cache-{{ checksum "poetry.lock" }}
 
-  #     - run:
-  #         name: Install
-  #         command: poetry install -v
+      - run:
+          name: Install
+          command: poetry install -v
 
-  #     - save_cache:
-  #         key: v1-py-cache-{{ checksum "poetry.lock" }}
-  #         paths:
-  #           - /home/circleci/.cache/pypoetry/virtualenvs
+      - save_cache:
+          key: v1-py-cache-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
 
-  #     - persist_to_workspace:
-  #         root: .
-  #         paths:
-  #           - .
+      - persist_to_workspace:
+          root: .
+          paths:
+            - .
 
   install_deps:
     description: Install and cache dependencies
@@ -89,9 +89,10 @@ jobs:
   release:
     <<: *defaults
     steps:
-      - attach_workspace:
-          at: ~/repo
-      - install_deps
+      - checkout_and_install
+      # - attach_workspace:
+      #     at: ~/repo
+      # - install_deps
       - add_ssh_keys
       - run:
           name: Release
