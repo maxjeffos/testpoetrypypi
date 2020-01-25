@@ -60,6 +60,7 @@ jobs:
             cat requirements.txt
             curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
             chmod +x ./snyk
+            pip install -r requirements.txt
             ./snyk test --file=requirements.txt
 
   release:
@@ -67,6 +68,11 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
+
+      - run:
+          name: temp - make sure that the requirements.txt isn't persisted to the workspace
+          command: |
+            ls -la
 
       # this is so that I don't have to do a `checkout` to be able to push the git tag
       - run:
