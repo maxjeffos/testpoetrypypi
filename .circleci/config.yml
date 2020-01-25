@@ -93,13 +93,19 @@ jobs:
           at: ~/repo
       - run:
           name: show contents after attaching workspace
-          command: ls -la
-      
+          command: |
+            ls -la
+            ls -la .git
+            cat .git/config
+
       - checkout
       - run:
           name: show contents after checkout
-          command: ls -la
-      
+          command: |
+            ls -la
+            ls -la .git
+            cat .git/config
+
       - install_deps
       - add_ssh_keys
       - run:
