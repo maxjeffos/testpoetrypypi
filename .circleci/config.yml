@@ -6,29 +6,6 @@ defaults: &defaults
   working_directory: ~/repo
 
 commands:
-  checkout_and_install:
-    description: Checkout and install
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys: 
-            - v1-py-cache-{{ checksum "poetry.lock" }}
-
-      - run:
-          name: Install
-          command: poetry install -v
-
-      - save_cache:
-          key: v1-py-cache-{{ checksum "poetry.lock" }}
-          paths:
-            - /home/circleci/.cache/pypoetry/virtualenvs
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
   install_deps:
     description: Install and cache dependencies
     steps:
@@ -64,24 +41,7 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
-      # I need to re-install the dependencies, but I don't have to re-checkout the code because I persisted it all to the workspace
-      # but the dependencies were installed into a virtualenv in some mystery location so were not persisted. Fortunately, they are cached.
-
       - install_deps
-
-#      - restore_cache:
-#          keys:
-#            - v1-py-cache-{{ checksum "poetry.lock" }}
-#
-#      - run:
-#          name: Install dependencies
-#          command: poetry install -v
-#
-#      - save_cache:
-#          key: v1-py-cache-{{ checksum "poetry.lock" }}
-#          paths:
-#            - /home/circleci/.cache/pypoetry/virtualenvs
-
       - run:
           name: Test
           command: poetry run pytest
@@ -91,25 +51,13 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/repo
-      - run:
-          name: show contents after attaching workspace
-          command: |
-            ls -la
-            # cat ~/.ssh/known_hosts # not found
-
-      # - checkout
 
       # this is so that I don't have to do a `checkout` to be able to push the git tag
       - run:
-          name: add github to known_hosts
+          name: Add github to known_hosts
           command: |
             mkdir ~/.ssh
             ssh-keyscan github.com > ~/.ssh/known_hosts
-
-      - run:
-          name: show contents after checkout
-          command: |
-            cat ~/.ssh/known_hosts
 
       - install_deps
       - add_ssh_keys
