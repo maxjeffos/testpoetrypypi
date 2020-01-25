@@ -55,6 +55,8 @@ jobs:
       - run:
           name: Test dependencies for security issues
           command: |
+            npm -v
+            
             mkdir dependencies-check
             poetry export -f requirements.txt --without-hashes > dependencies-check/requirements.txt
             # poetry run pip freeze > dependencies-check/requirements.txt
