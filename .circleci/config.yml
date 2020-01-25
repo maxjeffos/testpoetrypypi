@@ -60,8 +60,13 @@ jobs:
             cat requirements.txt
             curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
             chmod +x ./snyk
+
+            # for some reason, running pip install needs to connect to github.com
+            mkdir ~/.ssh
+            ssh-keyscan github.com > ~/.ssh/known_hosts
+
             pip install -r requirements.txt
-            # ./snyk test --file=requirements.txt
+            ./snyk test --file=requirements.txt
 
   release:
     <<: *defaults
