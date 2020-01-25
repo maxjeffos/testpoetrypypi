@@ -94,7 +94,8 @@ jobs:
       - run:
           name: show contents after attaching workspace
           command: |
-            cat ~/.ssh/known_hosts
+            ls -la
+            # cat ~/.ssh/known_hosts # not found
 
       - checkout
       - run:
