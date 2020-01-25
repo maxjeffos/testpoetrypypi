@@ -55,21 +55,16 @@ jobs:
       - run:
           name: Test dependencies for security issues
           command: |
-            npm -v
-            
+            # export requirements.txt from pyproject.toml into temp location
             mkdir dependencies-check
             poetry export -f requirements.txt --without-hashes > dependencies-check/requirements.txt
-            # poetry run pip freeze > dependencies-check/requirements.txt
             cd dependencies-check
-            ls -la
-            # cat requirements.txt
-            
-            # curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
+
+            # test dependencies with Snyk
             latest_version=$(curl -Is "https://github.com/snyk/snyk/releases/latest" | grep "Location" | sed s#.*tag/##g | tr -d "\r")
             snyk_cli_dl_linux="https://github.com/snyk/snyk/releases/download/${latest_version}/snyk-linux"
             curl -Lo ./snyk $snyk_cli_dl_linux
             chmod +x ./snyk
-
             pip install -r requirements.txt
             ./snyk test --file=requirements.txt
 
