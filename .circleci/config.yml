@@ -89,10 +89,17 @@ jobs:
   release:
     <<: *defaults
     steps:
-      # - checkout_and_install
-      # - checkout
       - attach_workspace:
           at: ~/repo
+      - run:
+          name: show contents after attaching workspace
+          command: ls -la
+      
+      - checkout
+      - run:
+          name: show contents after checkout
+          command: ls -la
+      
       - install_deps
       - add_ssh_keys
       - run:
