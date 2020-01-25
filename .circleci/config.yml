@@ -54,7 +54,7 @@ jobs:
 
       # this is so that I don't have to do a `checkout` to be able to push the git tag
       - run:
-          name: Add github to known_hosts
+          name: Add github.com to known_hosts
           command: |
             mkdir ~/.ssh
             ssh-keyscan github.com > ~/.ssh/known_hosts
