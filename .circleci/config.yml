@@ -89,7 +89,8 @@ jobs:
   release:
     <<: *defaults
     steps:
-      - checkout_and_install
+      # - checkout_and_install
+      - checkout
       # - attach_workspace:
       #     at: ~/repo
       - install_deps
