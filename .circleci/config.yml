@@ -55,9 +55,11 @@ jobs:
       - run:
           name: Create requirements.txt
           command: |
-            poetry run pip freeze > requirements.txt
+            mkdir dependencies-check
+            poetry run pip freeze > dependencies-check/requirements.txt
+            cd dependencies-check
             ls -la
-            cat requirements.txt
+            # cat requirements.txt
             curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
             chmod +x ./snyk
 
