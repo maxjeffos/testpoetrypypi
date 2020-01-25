@@ -56,7 +56,8 @@ jobs:
           name: Create requirements.txt
           command: |
             mkdir dependencies-check
-            poetry run pip freeze > dependencies-check/requirements.txt
+            poetry export -f requirements.txt --without-hashes > dependencies-check/requirements.txt
+            # poetry run pip freeze > dependencies-check/requirements.txt
             cd dependencies-check
             ls -la
             # cat requirements.txt
@@ -64,8 +65,8 @@ jobs:
             chmod +x ./snyk
 
             # for some reason, running pip install needs to connect to github.com
-            mkdir ~/.ssh
-            ssh-keyscan github.com > ~/.ssh/known_hosts
+            # mkdir ~/.ssh
+            # ssh-keyscan github.com > ~/.ssh/known_hosts
 
             pip install -r requirements.txt
             # ./snyk test --file=requirements.txt
