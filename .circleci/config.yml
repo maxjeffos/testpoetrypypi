@@ -61,7 +61,7 @@ jobs:
             curl -Lo ./snyk "https://github.com/snyk/snyk/releases/download/v1.280.0/snyk-linux"
             chmod +x ./snyk
             pip install -r requirements.txt
-            ./snyk test --file=requirements.txt
+            # ./snyk test --file=requirements.txt
 
   release:
     <<: *defaults
