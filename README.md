@@ -2,7 +2,7 @@
 
 |           | master | develop |
 |:----------|:-------|:--------|
-| CI Status | [![CircleCI](https://circleci.com/gh/jeff-snyk/testpoetrypypi/tree/master.svg?style=svg)](https://circleci.com/gh/jeff-snyk/testpoetrypypi/tree/master)|[![CircleCI](https://circleci.com/gh/jeff-snyk/testpoetrypypi/tree/develop.svg?style=svg)](https://circleci.com/gh/jeff-snyk/testpoetrypypi/tree/develop)|
+| CI Status | [![CircleCI](https://circleci.com/gh/maxjeffos/testpoetrypypi/tree/master.svg?style=svg)](https://circleci.com/gh/maxjeffos/testpoetrypypi/tree/master)|[![CircleCI](https://circleci.com/gh/maxjeffos/testpoetrypypi/tree/develop.svg?style=svg)](https://circleci.com/gh/maxjeffos/testpoetrypypi/tree/develop)|
 
 A reference-ish implementation of a Python project that uses:
 + Poetry (and pyproject.toml)
