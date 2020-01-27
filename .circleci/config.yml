@@ -90,7 +90,6 @@ jobs:
             git config --global user.email "${GH_USER_EMAIL}"
             git config --global user.name "${GH_USER}"
 
-            # note running this command alone seems to produce the tag (but we still need to push it)
             # poetry run semantic-release version -Dversion_source=${SEM_REL_VERSION_SOURCE} -Dversion_variable=${SEM_REL_VERSION_VARIABLE}
             poetry run semantic-release version
 
