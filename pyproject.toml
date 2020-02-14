@@ -5,6 +5,10 @@ description = ""
 authors = ["Jeff"]
 license = "Apache-2.0"
 readme = "README.md"
+homepage = "https://github.com/maxjeffos/testpoetrypypi"
+documentation = "https://github.com/maxjeffos/testpoetrypypi"
+repository = "https://github.com/maxjeffos/testpoetrypypi"
+keywords = ["poetry", "pypi", "circleci"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
